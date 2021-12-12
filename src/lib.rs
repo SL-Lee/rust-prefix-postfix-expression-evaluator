@@ -68,18 +68,14 @@ mod tests {
     #[test]
     fn prefix_evaluation_test() {
         assert!(
-            12.0 - evaluate(ExpressionType::Prefix, "+ - 3 5 / * 7 6 3")
-                .unwrap()
-                < ERROR_MARGIN
+            12.0 - evaluate(ExpressionType::Prefix, "+ - 3 5 / * 7 6 3").unwrap() < ERROR_MARGIN
         );
     }
 
     #[test]
     fn postfix_evaluation_test() {
         assert!(
-            12.0 - evaluate(ExpressionType::Postfix, "3 5 - 7 6 * 3 / +")
-                .unwrap()
-                < ERROR_MARGIN
+            12.0 - evaluate(ExpressionType::Postfix, "3 5 - 7 6 * 3 / +").unwrap() < ERROR_MARGIN
         );
     }
 }
