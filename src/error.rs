@@ -45,9 +45,7 @@ impl fmt::Display for Error {
 
 impl From<num::ParseFloatError> for Error {
     fn from(_: num::ParseFloatError) -> Self {
-        Error {
-            kind: ErrorKind::InvalidNumberInExpression,
-        }
+        Error { kind: ErrorKind::InvalidNumberInExpression }
     }
 }
 

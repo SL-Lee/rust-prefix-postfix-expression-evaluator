@@ -3,10 +3,8 @@ pub mod error;
 use crate::error::{Error, ErrorKind};
 
 pub fn evaluate(expr_type: ExpressionType, expr: &str) -> Result<f64, Error> {
-    let mut tokens = expr
-        .split_ascii_whitespace()
-        .map(|slice| slice.to_string())
-        .collect::<Vec<String>>();
+    let mut tokens =
+        expr.split_ascii_whitespace().map(|slice| slice.to_string()).collect::<Vec<String>>();
 
     if let ExpressionType::Prefix = expr_type {
         tokens.reverse();
@@ -18,12 +16,10 @@ pub fn evaluate(expr_type: ExpressionType, expr: &str) -> Result<f64, Error> {
         let token = tokens.remove(0);
 
         if ["+", "-", "*", "/", "^"].contains(&token.as_str()) {
-            let mut right = stack
-                .pop()
-                .ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))?;
-            let mut left = stack
-                .pop()
-                .ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))?;
+            let mut right =
+                stack.pop().ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))?;
+            let mut left =
+                stack.pop().ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))?;
 
             if let ExpressionType::Prefix = expr_type {
                 std::mem::swap(&mut left, &mut right);
@@ -46,9 +42,7 @@ pub fn evaluate(expr_type: ExpressionType, expr: &str) -> Result<f64, Error> {
     }
 
     if stack.len() == 1 {
-        stack
-            .pop()
-            .ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))
+        stack.pop().ok_or_else(|| Error::new(ErrorKind::InvalidInputExpression))
     } else {
         Err(Error::new(ErrorKind::InvalidInputExpression))
     }
